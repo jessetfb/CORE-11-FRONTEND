@@ -1,0 +1,101 @@
+.app {
+    font-family: Arial, sans-serif;
+  }
+  
+  .gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 20px;
+    justify-content: center;
+  }
+  
+  .gallery img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: transform 0.3s;
+  }
+  
+  .gallery img:hover {
+    transform: scale(1.05);
+  }
+  
+  .lightbox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
+  
+  .lightbox-content {
+    position: relative;
+    background: grey;
+    padding: 0px;
+    border-radius: 24px;
+    max-width:150%;
+    max-height: 200%;
+    display: flex;
+    cursor: auto;
+    flex-direction: row;
+  }
+  
+  /* Style for the textbox */
+  .textbox {
+    background: white;
+    border-radius: 5px;
+    padding: 10px;
+    max-width:150%;
+    max-height: 200%;
+    margin-left: 10px; /* Adjust the space between lightbox-content and textbox */
+    flex: 1; /* Makes the textbox take the remaining space */
+  }
+  
+  .lightbox img {
+    max-width: 60%;
+    max-height: 80vh;
+    border-radius: 10px;
+  }
+  
+  .image-details {
+    margin-left: 20px;
+    text-align: left;
+    max-width: 40%;
+  }
+  
+  .image-details h2 {
+    margin: 0;
+    font-size: 24px;
+  }
+  
+  .image-details p {
+    margin: 5px 0;
+    font-size: 16px;
+  }
+  
+  .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #fff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+  }
+  
+  .lightbox-container {
+    display: flex;
+    flex-direction: row; /* Ensures the lightbox-content and textbox are side by side */
+    align-items: flex-start; /* Adjusts the alignment as needed */
+  }
+  
