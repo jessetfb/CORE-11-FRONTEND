@@ -2,9 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import Profile from './components/UserProfile/Profile';
 import Mainboard from './components/Discover/Mainboard';
-import NavBar from './components/Discover/NavBar';
+import CreateHashtags from './components/Hashtag/CreateHashtag';
+import ManageHashtags from './components/Hashtag/ManageHashtag';
 import unsplash from './api/unsplash';
 import './App.css';
+import Navbar from './components/Discover/Navbar.jsx';
+
 
 function App() {
   const [pins, setPins] = useState([]);
@@ -56,7 +59,13 @@ function App() {
   return (
     <Router>
       <div className="app">
-        <NavBar onSubmit={onSearchSubmit} />
+        <Routes>
+        <Route path="/" element={<Navbar />} />
+        </Routes>
+        <Routes>
+        <Route path="/" element={<CreateHashtags />} />
+        <Route path="/managehashtag/:id" element={<ManageHashtags />} />
+        </Routes>
         <Routes>
           <Route path="/" element={<Mainboard pins={pins} onImageClick={setSelectedImage} />} />
           <Route path="/mainboard" element={<Mainboard pins={pins} onImageClick={setSelectedImage} />} />
