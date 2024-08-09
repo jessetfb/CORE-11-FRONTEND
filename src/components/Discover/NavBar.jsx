@@ -7,7 +7,7 @@ import FaceIcon from "@mui/icons-material/Face";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { Link, useNavigate } from 'react-router-dom';
 
-function Navbar (props) {
+function NavBar (props) {
   const [input, setInput] = useState("");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false); // Track login state
@@ -124,4 +124,4 @@ function Navbar (props) {
   );
 }
 
-export default Navbar;
+export default NavBar;
