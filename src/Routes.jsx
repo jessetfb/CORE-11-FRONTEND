@@ -3,8 +3,8 @@
 import React from "react";
 import { Route, Routes as RouterRoutes, Navigate } from "react-router-dom";
 import Profile from "./components/UserProfile/Profile";
-import Mainboard from "./components/Discover/Mainboard";
-import NavBar from "./components/Discover/NavBar";
+import Mainboard from "./components/Mainboard";
+import NavBar from "./components/NavBar";
 
 const Routes = ({
   pins,

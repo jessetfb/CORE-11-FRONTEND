@@ -1,21 +1,23 @@
 import React from "react";
 import styled from "styled-components";
-import Pin from "./Pin";
+import Pin from "./Discover/Pin";
 
-function Mainboard({ pins, onImageClick }) {
+function Home({ pins, onImageClick }) {
   return (
     <Wrapper>
       <Container>
         {pins.map((pin, index) => {
           let { urls } = pin;
-          return <Pin key={index} urls={urls} onClick={() => onImageClick(pin)} />;
+          return (
+            <Pin key={index} urls={urls} onClick={() => onImageClick(pin)} />
+          );
         })}
       </Container>
     </Wrapper>
   );
 }
 
-export default Mainboard;
+export default Home;
 
 const Wrapper = styled.div`
   background-color: #f0f0f0; /* Light gray background for better contrast */

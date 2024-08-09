@@ -5,7 +5,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import Routes from "./Routes";
 import unsplash from "./api/unsplash";
 import "./App.css";
-import NavBar from "./components/Discover/NavBar";
+import NavBar from "./components/NavBar";
 
 function App() {
   const [pins, setPins] = useState([]);
