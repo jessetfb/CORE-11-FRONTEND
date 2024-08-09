@@ -1,10 +1,10 @@
 import React from 'react'
 
-type Props = {}
-
-function FollowUnfollow({}: Props) {
+function FollowUnfollow() {
   return (
-    <div>FollowUnfollow</div>
+    <div>
+      
+    </div>
   )
 }
 
