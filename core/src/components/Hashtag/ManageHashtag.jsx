@@ -1,25 +1,23 @@
-// src/components/Board.js
 import React from 'react';
-import { useParams } from 'react-router-dom';
-import { boards } from '../../data/boards';
-import Pins from './Pins';
 
-function ManageHashtags() {
-  const { id } = useParams();
-  const board = boards.find(b => b.id === parseInt(id));
-
-  if (!board) return <p>Board not found.</p>;
+const ManageHashtags = () => {
+  // Sample data
+  const hashtags = ['#Travel', '#Food', '#Nature'];
 
   return (
-    <div className="board">
-      <h1>{board.title}</h1>
-      <div className="pins">
-        {board.pins.map(pin => (
-          <Pins key={pin.id} pin={pin} />
-        ))}
+    <div className="container mx-auto p-6">
+      <h1 className="text-4xl font-bold mb-6">Manage Hashtags</h1>
+      <div className="bg-white p-6 rounded-lg shadow-lg">
+        <ul className="list-disc pl-6">
+          {hashtags.map((hashtag, index) => (
+            <li key={index} className="text-blue-500 mb-2">
+              {hashtag}
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );
-}
+};
 
 export default ManageHashtags;
