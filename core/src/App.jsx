@@ -3,10 +3,14 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-d
 import Profile from './components/UserProfile/Profile';
 import Mainboard from './components/Discover/Mainboard';
 import CreateHashtags from './components/Hashtag/CreateHashtag';
-import ManageHashtags from './components/Hashtag/ManageHashtag';
+import ManageCore from './components/Core/ManageCore.jsx';
+import CreateCore from './components/Core/CreateCore.jsx';
+import ManageCore from './components/Core/ManageCore.jsx';
+import FollowUnfollow from './components/Follow/FollowUnfollow.jsx';
 import unsplash from './api/unsplash';
 import './App.css';
 import Navbar from './components/Discover/Navbar.jsx';
+
 
 
 function App() {
@@ -66,6 +70,9 @@ function App() {
         <Route path="/" element={<CreateHashtags />} />
         <Route path="/managehashtag/:id" element={<ManageHashtags />} />
         </Routes>
+        <Route path="/create-core" element={<CreateCore />} />
+          <Route path="/manage-core" element={<ManageCore />} />
+          <Route path="/follow-unfollow" element={<FollowUnfollow user={user} />} />
         <Routes>
           <Route path="/" element={<Mainboard pins={pins} onImageClick={setSelectedImage} />} />
           <Route path="/mainboard" element={<Mainboard pins={pins} onImageClick={setSelectedImage} />} />
