@@ -1,7 +1,7 @@
 // src/components/UserProfile.jsx
 import React from 'react';
 
-const UserProfile = () => {
+const Profile = () => {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-white">
       {/* Profile Picture */}
@@ -39,4 +39,4 @@ const UserProfile = () => {
   );
 };
 
-export default UserProfile;
+export default Profile;
