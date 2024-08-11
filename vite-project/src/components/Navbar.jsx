@@ -1,90 +1,77 @@
-// src/components/Navbar.jsx
-import React, { useState } from 'react';
-import { Navbar, Nav, NavDropdown, Form, FormControl, Button, Modal } from 'react-bootstrap';
+import React, { useState, useEffect } from 'react';
+import { Navbar, Nav, Dropdown, Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBell, faEnvelope, faSearch, faUser } from '@fortawesome/free-solid-svg-icons';
-import '../style.css'
+import '../style.css'; // Assuming you have some styles in this file
 
-const NavbarComponent = ({ isLoggedIn, user }) => {
-  const [showNotifications, setShowNotifications] = useState(false);
-  const [showMessages, setShowMessages] = useState(false);
+const NavbarComponent = () => {
+  const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
-  const handleSearch = () => {
-    // Implement search logic
+  useEffect(() => {
+    fetchUserDetails();
+  }, []);
+
+  const fetchUserDetails = async () => {
+    try {
+      const response = await fetch('http://localhost:5000/protected', {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}` // Include token if available
+        }
+      });
+      if (response.ok) {
+        const data = await response.json();
+        setUser(data);
+      } else {
+        console.error('Unauthorized');
+        navigate('/login'); // Redirect to login if unauthorized
+      }
+    } catch (error) {
+      console.error('Error fetching user details:', error);
+    }
   };
 
-  const handleLogin = () => {
+  const handleLogout = () => {
+    localStorage.removeItem('token');
     navigate('/login');
   };
 
-  const handleProfile = () => {
-    const redirectTo = user.isAdmin ? '/admin-dashboard' : '/user-dashboard';
-    navigate(redirectTo);
-  };
-
   return (
-    <Navbar bg="light" expand="lg" className="py-3">
-      <Navbar.Brand href="/" onClick={(e) => { e.preventDefault(); navigate('/'); }}>
-        <img src="https://cdna.artstation.com/p/assets/images/images/056/038/296/large/solo-art-god-serban9-letter-c-logo-design-with-watrfall-8k-octane-render-53caf5e6-0302-44e6-99e5-9260af5c4531.jpg?1668330079" alt="Logo" width="120" height="30" />
-      </Navbar.Brand>
-      <Navbar.Toggle aria-controls="basic-navbar-nav" />
-      <Navbar.Collapse id="basic-navbar-nav">
-        <Nav className="mr-auto">
-          <Nav.Link href="/" onClick={(e) => { e.preventDefault(); navigate('/'); }}>Home</Nav.Link>
-          <Nav.Link href="/create-core" onClick={(e) => { e.preventDefault(); navigate('/create-core'); }}>Create</Nav.Link>
-        </Nav>
-        <Form inline className="ml-auto search-form">
-          <FormControl
-            type="text"
-            placeholder="Search"
-            className="search-input"
-            onClick={() => setSearchHistory([...searchHistory, 'New search'])}
-          />
-          <Button variant="outline-success" className="search-button" onClick={handleSearch}>
-            <FontAwesomeIcon icon={faSearch} />
-          </Button>
-        </Form>
-        <Button variant="outline-primary" className="mx-2" onClick={() => setShowNotifications(true)}>
-          <FontAwesomeIcon icon={faBell} />
-        </Button>
-        <Button variant="outline-primary" className="mx-2" onClick={() => setShowMessages(true)}>
-          <FontAwesomeIcon icon={faEnvelope} />
-        </Button>
-        {isLoggedIn ? (
-          <NavDropdown title={user.profilePicture ? <img src={user.profilePicture} alt="Profile" width="30" height="30" /> : <FontAwesomeIcon icon={faUser} />} id="basic-nav-dropdown">
-            <NavDropdown.Item onClick={handleProfile}>Profile</NavDropdown.Item>
-            <NavDropdown.Item onClick={() => navigate('/logout')}>Logout</NavDropdown.Item>
-          </NavDropdown>
-        ) : (
-          <Button variant="outline-primary" onClick={handleLogin}>
-            <FontAwesomeIcon icon={faUser} />
-          </Button>
-        )}
-      </Navbar.Collapse>
+    <Navbar bg="light" expand="lg">
+      <Navbar.Brand href="/">Home</Navbar.Brand>
+      <Nav className="mr-auto">
+        {/* Other Nav Links */}
+      </Nav>
+      {user && (
+        <Dropdown align="end" className="profile-dropdown">
+          <Dropdown.Toggle variant="success" id="dropdown-basic">
+            <img 
+              src={user.profilePicture} 
+              alt="Profile" 
+              className="profile-picture" 
+              style={{ borderRadius: '50%', width: '50px', height: '50px' }}
+            />
+          </Dropdown.Toggle>
 
-      {/* Notifications Modal */}
-      <Modal show={showNotifications} onHide={() => setShowNotifications(false)}>
-        <Modal.Header closeButton>
-          <Modal.Title>Notifications</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>Here are your notifications.</Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={() => setShowNotifications(false)}>Close</Button>
-        </Modal.Footer>
-      </Modal>
-
-      {/* Messages Modal */}
-      <Modal show={showMessages} onHide={() => setShowMessages(false)}>
-        <Modal.Header closeButton>
-          <Modal.Title>Messages</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>Here are your messages.</Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={() => setShowMessages(false)}>Close</Button>
-        </Modal.Footer>
-      </Modal>
+          <Dropdown.Menu>
+            <Dropdown.ItemText>
+              <div className="profile-info">
+                <img 
+                  src={user.profilePicture} 
+                  alt="Profile" 
+                  className="profile-picture" 
+                  style={{ borderRadius: '50%', width: '50px', height: '50px' }}
+                />
+                <div className="profile-details">
+                  <strong>{user.username}</strong>
+                  <p>{user.email}</p>
+                </div>
+              </div>
+            </Dropdown.ItemText>
+            <Dropdown.Divider />
+            <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
+          </Dropdown.Menu>
+        </Dropdown>
+      )}
     </Navbar>
   );
 };
