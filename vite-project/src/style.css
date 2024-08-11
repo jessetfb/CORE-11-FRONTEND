@@ -1,0 +1,30 @@
+/* src/components/Navbar.css */
+.search-form {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    flex: 1;
+  }
+  
+  .search-input {
+    flex: 1;
+    margin-right: 0.5rem;
+    border-radius: 25px;
+    padding-left: 2.5rem; /* Adjust padding to make space for icon */
+    position: relative;
+  }
+  
+  .search-input::before {
+    content: '\f002'; /* Unicode for search icon */
+    font-family: 'Font Awesome 5 Free'; /* Use Font Awesome font */
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #6c757d; /* Color for the icon */
+  }
+  
+  .search-button {
+    border-radius: 25px;
+  }
+  
