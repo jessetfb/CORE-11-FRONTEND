@@ -1,15 +1,12 @@
-import React from 'react';
+
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './Pages/HomePage';
 import LandingPage from './Pages/LandingPage';
 import Register from './components/registration';
 import ProtectedRoute from './components/ProtectedRoute';
-import HashtagPage from './components/HashtagPage';
-import HashtagsSection from './components/HashtagsSection';
-import Dashboard from './Pages/dashboard'; 
-import CreateCore from './components/CreateCore'; // Import the CreateCore component
 
-function AppRoutes() { 
+
+
   return (
     <Router>
       <Routes>
