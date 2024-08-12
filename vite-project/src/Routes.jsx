@@ -1,12 +1,14 @@
+import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './Pages/HomePage';
-//import corepage from './components/corepage';
 import LandingPage from './Pages/LandingPage';
 import Register from './components/registration';
 import ProtectedRoute from './components/ProtectedRoute';
-import HashtagPage from './components/HashtagPage'; // Import the HashtagPage component
-import HashtagsSection from './components/HashtagsSection'; // Import the HashtagsSection component
-import Dashboard from "./Pages/dashboard"; 
+import HashtagPage from './components/HashtagPage';
+import HashtagsSection from './components/HashtagsSection';
+import Dashboard from './Pages/dashboard'; 
+import CreateCore from './components/CreateCore'; // Import the CreateCore component
+
 function AppRoutes() { 
   return (
     <Router>
@@ -22,7 +24,6 @@ function AppRoutes() {
               <Home />
             </ProtectedRoute>
           } 
-   
         />
         <Route 
           path="/hashtag/:tag" 
@@ -32,7 +33,6 @@ function AppRoutes() {
             </ProtectedRoute>
           } 
         />
-        {/* Add other protected routes here */}
         <Route 
           path="/dashboard" 
           element={
@@ -41,6 +41,15 @@ function AppRoutes() {
             </ProtectedRoute>
           } 
         />
+        <Route 
+          path="/create-core" 
+          element={
+            <ProtectedRoute>
+              <CreateCore /> {/* Route for the CreateCore page */}
+            </ProtectedRoute>
+          } 
+        />
+        {/* Add other protected routes here */}
       </Routes>
     </Router>
   );

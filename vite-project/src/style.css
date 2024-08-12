@@ -1,4 +1,9 @@
+
 /* src/components/Navbar.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 .search-form {
     display: flex;
     align-items: center;
