@@ -19,7 +19,6 @@ function AppRoutes() {
           path="/" 
           element={
             <ProtectedRoute>
-              <HashtagsSection /> {/* Add the HashtagsSection component */}
               <Home />
             </ProtectedRoute>
           } 

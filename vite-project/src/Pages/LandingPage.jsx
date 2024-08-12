@@ -1,40 +1,39 @@
 import React, { useState } from 'react';
-import { Form, Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { Form, Button } from 'react-bootstrap';
 
 const LandingPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
     try {
-      const response = await fetch('http://localhost:5000/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify({ email, password }),
-        credentials: 'include'
-      });
-      if (response.ok) {
-        const { access_token } = await response.json();
-        localStorage.setItem('token', access_token);
-        navigate('/');
-      } else {
-        console.error('Login failed');
-      }
+      const response = await axios.post('http://localhost:5000/token', { email, password });
+      const token = response.data.access_token;
+
+      // Store the token in localStorage
+      localStorage.setItem('token', token);
+
+      // Redirect to the home page or dashboard after successful login
+      navigate('/');
     } catch (error) {
-      console.error('Error logging in:', error);
+      // If login fails (e.g., bad email or password), display an error or redirect to registration
+      if (error.response && error.response.status === 401) {
+        alert('Invalid email or password. Please try again or register.');
+      } else {
+        console.error('An error occurred during login:', error);
+      }
     }
   };
 
   return (
-    <div className="container">
-      <h1>Login</h1>
-      <Form onSubmit={handleSubmit}>
+    <div className="login-form">
+      <h2>Login</h2>
+      <Form onSubmit={handleLogin}>
         <Form.Group controlId="formEmail">
           <Form.Label>Email address</Form.Label>
           <Form.Control
@@ -42,6 +41,7 @@ const LandingPage = () => {
             placeholder="Enter email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            required
           />
         </Form.Group>
 
@@ -52,6 +52,7 @@ const LandingPage = () => {
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            required
           />
         </Form.Group>
 
