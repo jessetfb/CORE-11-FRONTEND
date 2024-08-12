@@ -1,12 +1,12 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './Pages/HomePage';
-import CorePage from './components/CorePage';
+//import corepage from './components/corepage';
 import LandingPage from './Pages/LandingPage';
 import Register from './components/registration';
 import ProtectedRoute from './components/ProtectedRoute';
 import HashtagPage from './components/HashtagPage'; // Import the HashtagPage component
 import HashtagsSection from './components/HashtagsSection'; // Import the HashtagsSection component
-
+import Dashboard from "./Pages/dashboard"; 
 function AppRoutes() { 
   return (
     <Router>
@@ -22,14 +22,7 @@ function AppRoutes() {
               <Home />
             </ProtectedRoute>
           } 
-        />
-        <Route 
-          path="/core/:id" 
-          element={
-            <ProtectedRoute>
-              <CorePage />
-            </ProtectedRoute>
-          } 
+   
         />
         <Route 
           path="/hashtag/:tag" 
@@ -40,6 +33,14 @@ function AppRoutes() {
           } 
         />
         {/* Add other protected routes here */}
+        <Route 
+          path="/dashboard" 
+          element={
+            <ProtectedRoute>
+              <Dashboard /> {/* Route for the Dashboard page */}
+            </ProtectedRoute>
+          } 
+        />
       </Routes>
     </Router>
   );
