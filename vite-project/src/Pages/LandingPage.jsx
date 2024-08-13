@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Form, Button } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css'; // Ensure Bootstrap is included
 
 const LandingPage = () => {
   const [email, setEmail] = useState('');
@@ -33,35 +34,57 @@ const LandingPage = () => {
   };
 
   return (
-    <div className="login-form">
-      <h2>Login</h2>
-      <Form onSubmit={handleLogin}>
-        <Form.Group controlId="formEmail">
-          <Form.Label>Email address</Form.Label>
-          <Form.Control
-            type="email"
-            placeholder="Enter email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </Form.Group>
+    <div className="relative min-h-screen flex items-center justify-center bg-gray-900">
+      {/* Background Image */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="w-full h-full bg-cover bg-center bg-[url('https://i.pinimg.com/736x/d9/59/02/d95902b0460a9fabe254913a3d71867a.jpg')]"></div>
+      </div>
 
-        <Form.Group controlId="formPassword">
-          <Form.Label>Password</Form.Label>
-          <Form.Control
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </Form.Group>
+      {/* Main Container */}
+      <div className="relative z-10 w-full max-w-md p-8">
+        {/* Welcome Text */}
+        <div className="mb-8 text-center">
+          <h1 className="text-4xl font-extrabold text-white">Welcome to Core</h1>
+        </div>
 
-        <Button variant="primary" type="submit">
-          Login
-        </Button>
-      </Form>
+        {/* Form Container with Gradient Background */}
+        <div className="p-8 bg-gradient-to-r from-purple-400 via-blue-500 to-indigo-600 rounded-lg shadow-lg">
+          <h2 className="text-3xl font-bold text-center mb-6 text-white">Login</h2>
+          <Form onSubmit={handleLogin} className="space-y-4">
+            <Form.Group controlId="formEmail">
+              <Form.Label className="text-white">Email address</Form.Label>
+              <Form.Control
+                type="email"
+                placeholder="Enter email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                className="rounded-md border-gray-300 shadow-sm bg-white text-gray-900 focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
+              />
+            </Form.Group>
+
+            <Form.Group controlId="formPassword">
+              <Form.Label className="text-white">Password</Form.Label>
+              <Form.Control
+                type="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                className="rounded-md border-gray-300 shadow-sm bg-white text-gray-900 focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
+              />
+            </Form.Group>
+
+            <Button
+              variant="primary"
+              type="submit"
+              className="w-full py-2 bg-indigo-500 hover:bg-indigo-700 text-white font-bold rounded-md shadow-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50"
+            >
+              Login
+            </Button>
+          </Form>
+        </div>
+      </div>
     </div>
   );
 };
