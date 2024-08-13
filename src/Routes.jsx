@@ -1,46 +1,66 @@
-// src/Routes.jsx
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './Pages/HomePage';
 import LandingPage from './Pages/LandingPage';
-import Register from './components/registration';
+import Register from './components/Registration';
 import ProtectedRoute from './components/ProtectedRoute';
-import HashtagPage from './components/HashtagPage'; // Import the HashtagPage component
-import HashtagsSection from './components/HashtagsSection'; // Import the HashtagsSection component
-import Dashboard from "./Pages/dashboard"; // Import Dashboard from the Pages folder
+import HashtagPage from './components/HashtagPage';
+import Dashboard from './Pages/dashboard';
+import Core from './components/Core'; // Import Core component
+import Corepage from './components/Corepage'; // Import CorePage component
 
 function AppRoutes() {
   return (
     <Router>
       <Routes>
+        {/* Public Routes */}
         <Route path="/login" element={<LandingPage />} />
         <Route path="/register" element={<Register />} />
 
         {/* Protected Routes */}
-        <Route 
-          path="/" 
+        <Route
+          path="/"
           element={
             <ProtectedRoute>
               <Home />
             </ProtectedRoute>
-          } 
+          }
         />
-        <Route 
-          path="/hashtag/:tag" 
+        <Route
+          path="/hashtag/:tag"
           element={
             <ProtectedRoute>
-              <HashtagPage /> {/* Route for hashtag filtering */}
+              <HashtagPage />
             </ProtectedRoute>
-          } 
+          }
         />
-        {/* Add other protected routes here */}
-        <Route 
-          path="/dashboard" 
+        <Route
+          path="/dashboard"
           element={
             <ProtectedRoute>
-              <Dashboard /> {/* Route for the Dashboard page */}
+              <Dashboard />
             </ProtectedRoute>
-          } 
+          }
         />
+
+        {/* Core Components Routes */}
+        <Route
+          path="/core"
+          element={
+            <ProtectedRoute>
+              <Core /> {/* Route for the Core component */}
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/core/:id"
+          element={
+            <ProtectedRoute>
+              <Corepage /> {/* Route for viewing a specific Core item */}
+            </ProtectedRoute>
+          }
+        />
+
+        {/* Add more protected routes as needed */}
       </Routes>
     </Router>
   );
