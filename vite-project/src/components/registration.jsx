@@ -49,7 +49,7 @@ const Register = () => {
     <div className="relative flex min-h-screen overflow-hidden">
       {/* Background Images with Fade-in Animation */}
       <div className="absolute inset-0">
-      <div className="w-full h-full bg-cover bg-center animate-slideshow"></div>
+        <div className="w-full h-full bg-cover bg-center animate-slideshow"></div>
         {/* Dark Overlay */}
         <div className="absolute inset-0 bg-black opacity-50 animate-fadeIn animate-duration-1000 animate-delay-200"></div>
       </div>
