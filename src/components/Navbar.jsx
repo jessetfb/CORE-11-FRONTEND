@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Navbar, Nav, NavDropdown, Form, FormControl, Button, Modal } from 'react-bootstrap';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBell, faEnvelope, faSearch, faUser } from '@fortawesome/free-solid-svg-icons';
 import '../style.css';
@@ -14,48 +14,54 @@ const NavbarComponent = ({ isLoggedIn, user }) => {
     event.preventDefault();
     const query = event.target.searchInput.value;
     console.log('Searching for:', query);
+    // Implement search logic
+  };
+
+  const handleLogin = () => {
+    navigate('/login');
   };
 
   const handleProfileClick = () => {
-    const redirectTo = isLoggedIn ? (user.isAdmin ? '/admin-dashboard' : '/user-dashboard') : '/login';
-    navigate(redirectTo);
+    if (isLoggedIn) {
+      const redirectTo = user.isAdmin ? '/admin-dashboard' : '/user-dashboard';
+      navigate(redirectTo);
+    } else {
+      navigate('/login');
+    }
   };
 
   const handleLogout = () => {
+    // Clear user data and token
     localStorage.removeItem('token');
     navigate('/login');
   };
 
   return (
-    <Navbar bg="light" expand="lg" className="navbar">
-      <Link to="/" className="navbar-brand">
-        <img 
-          src="https://cdna.artstation.com/p/assets/images/images/056/038/296/large/solo-art-god-serban9-letter-c-logo-design-with-watrfall-8k-octane-render-53caf5e6-0302-44e6-99e5-9260af5c4531.jpg?1668330079" 
-          alt="Logo" 
-        />
-      </Link>
+    <Navbar bg="light" expand="lg" className="py-3">
+      <Navbar.Brand href="/" onClick={(e) => { e.preventDefault(); navigate('/'); }}>
+        <img src="https://cdna.artstation.com/p/assets/images/images/056/038/296/large/solo-art-god-serban9-letter-c-logo-design-with-watrfall-8k-octane-render-53caf5e6-0302-44e6-99e5-9260af5c4531.jpg?1668330079" alt="Logo" width="120" height="30" />
+      </Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
-          <Link to="/" className="nav-link">Home</Link>
-          <Link to="/create-core" className="nav-link">Create</Link>
+          <Nav.Link href="/" onClick={(e) => { e.preventDefault(); navigate('/'); }}>Home</Nav.Link>
+          <Nav.Link href="/create-core" onClick={(e) => { e.preventDefault(); navigate('/create-core'); }}>Create</Nav.Link>
         </Nav>
-        <Form className="search-form" onSubmit={handleSearch}>
+        <Form inline className="ml-auto search-form" onSubmit={handleSearch}>
           <FormControl
             type="text"
             name="searchInput"
             placeholder="Search"
             className="search-input"
-            aria-label="Search"
           />
-          <Button variant="outline-success" className="search-button" type="submit" aria-label="Search">
+          <Button variant="outline-success" className="search-button" type="submit">
             <FontAwesomeIcon icon={faSearch} />
           </Button>
         </Form>
-        <Button variant="outline-primary" className="mx-2" onClick={() => setShowNotifications(true)} aria-label="Notifications">
+        <Button variant="outline-primary" className="mx-2" onClick={() => setShowNotifications(true)}>
           <FontAwesomeIcon icon={faBell} />
         </Button>
-        <Button variant="outline-primary" className="mx-2" onClick={() => setShowMessages(true)} aria-label="Messages">
+        <Button variant="outline-primary" className="mx-2" onClick={() => setShowMessages(true)}>
           <FontAwesomeIcon icon={faEnvelope} />
         </Button>
         {isLoggedIn ? (
@@ -78,7 +84,7 @@ const NavbarComponent = ({ isLoggedIn, user }) => {
             <NavDropdown.Item onClick={handleLogout}>Logout</NavDropdown.Item>
           </NavDropdown>
         ) : (
-          <Button variant="outline-primary" onClick={() => navigate('/login')}>
+          <Button variant="outline-primary" onClick={handleLogin}>
             <FontAwesomeIcon icon={faUser} /> Login
           </Button>
         )}
