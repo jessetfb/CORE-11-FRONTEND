@@ -15,6 +15,40 @@
 .animate-slideshow {
   animation: slideshow 15s infinite;
 }
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 2s ease-in-out;
+}
+
+/* Slide Up Animation */
+@keyframes slideUp {
+  0% { transform: translateY(50px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+.animate-slideUp {
+  animation: slideUp 1s ease-in-out;
+}
+
+/* Pulse Animation */
+.animate-pulse {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
 .search-form {
     display: flex;
     align-items: center;
