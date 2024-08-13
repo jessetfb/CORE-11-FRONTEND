@@ -46,23 +46,25 @@ const Register = () => {
   };
 
   return (
-    <div className="relative flex min-h-screen">
-      {/* Background Images */}
+    <div className="relative flex min-h-screen overflow-hidden">
+      {/* Background Images with Fade-in Animation */}
       <div className="absolute inset-0">
-        <div className="w-full h-full bg-cover bg-center animate-slideshow"></div>
+      <div className="w-full h-full bg-cover bg-center animate-slideshow"></div>
+        {/* Dark Overlay */}
+        <div className="absolute inset-0 bg-black opacity-50 animate-fadeIn animate-duration-1000 animate-delay-200"></div>
       </div>
 
-      {/* Left Side Text */}
+      {/* Left Side Text with Slide-in Animation */}
       <div className="relative flex flex-1 items-center justify-center">
-        <div className="absolute inset-0 flex items-center justify-center pl-16 pr-10">
+        <div className="absolute inset-0 flex items-center justify-center pl-16 pr-10 animate-slideInLeft animate-duration-1000 animate-delay-300">
           <h1 className="text-white text-8xl font-bold">
             Sign up to get your ideas
           </h1>
         </div>
       </div>
 
-      {/* Registration Form */}
-      <div className="relative z-10 flex items-center justify-center flex-1">
+      {/* Registration Form with Slide-in Animation */}
+      <div className="relative z-10 flex items-center justify-center flex-1 animate-slideInRight animate-duration-1000 animate-delay-400">
         <div className="bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 p-10 rounded-2xl shadow-2xl w-full max-w-lg">
           <h2 className="text-3xl font-extrabold text-center mb-8 text-white">Create Your Account</h2>
           {error && <div className="mb-4 text-red-300 text-center">{error}</div>}
