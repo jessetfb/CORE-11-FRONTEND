@@ -37,7 +37,9 @@ const LandingPage = () => {
     <div className="relative min-h-screen flex items-center justify-center bg-gray-900">
       {/* Background Image */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="w-full h-full bg-cover bg-center bg-[url('https://i.pinimg.com/736x/d9/59/02/d95902b0460a9fabe254913a3d71867a.jpg')]"></div>
+        <div className="w-full h-full bg-cover bg-center bg-[url('https://i.pinimg.com/736x/dd/10/49/dd1049bd1a16e9f20eba83b990e221c3.jpg')]"></div>
+        {/* Dark Overlay */}
+        <div className="absolute inset-0 bg-black opacity-50"></div>
       </div>
 
       {/* Main Container */}
