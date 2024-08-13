@@ -16,18 +16,13 @@ const LandingPage = () => {
       const response = await axios.post('http://localhost:5000/token', { email, password });
       const token = response.data.access_token;
 
-      // Store the token in localStorage
       localStorage.setItem('token', token);
-
-      // Redirect to the home page or dashboard after successful login
       navigate('/');
     } catch (error) {
       if (error.response && error.response.status === 401) {
-        // Redirect to the registration page if unauthorized
         navigate('/register');
       } else {
         console.error('An error occurred during login:', error);
-        // Optionally, show an error message to the user
         alert('An error occurred. Please try again.');
       }
     }
@@ -43,14 +38,14 @@ const LandingPage = () => {
       </div>
 
       {/* Main Container */}
-      <div className="relative z-10 w-full max-w-md p-8">
+      <div className="relative z-10 w-full max-w-md p-8 animate-fadeIn">
         {/* Welcome Text */}
-        <div className="mb-8 text-center">
+        <div className="mb-8 text-center animate-slideInDown">
           <h1 className="text-4xl font-extrabold text-white">Welcome to Core</h1>
         </div>
 
         {/* Form Container with Gradient Background */}
-        <div className="p-8 bg-gradient-to-r from-purple-400 via-blue-500 to-indigo-600 rounded-lg shadow-lg">
+        <div className="p-8 bg-gradient-to-r from-purple-400 via-blue-500 to-indigo-600 rounded-lg shadow-lg animate-zoomIn">
           <h2 className="text-3xl font-bold text-center mb-6 text-white">Login</h2>
           <Form onSubmit={handleLogin} className="space-y-4">
             <Form.Group controlId="formEmail">
