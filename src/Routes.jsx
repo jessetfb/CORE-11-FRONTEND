@@ -4,9 +4,9 @@ import LandingPage from './Pages/LandingPage';
 import Register from './components/Registration';
 import ProtectedRoute from './components/ProtectedRoute';
 import HashtagPage from './components/HashtagPage';
-import Dashboard from './Pages/dashboard';
+import AdminDashboard from './Pages/dashboard/AdminDashboard'; // Corrected path
 import Core from './components/Core'; // Import Core component
-import Corepage from './components/Corepage'; // Import CorePage component
+import Corepage from './components/Corepage'; // Import CorePage component// Corrected path
 
 function AppRoutes() {
   return (
@@ -37,7 +37,17 @@ function AppRoutes() {
           path="/dashboard"
           element={
             <ProtectedRoute>
-              <Dashboard />
+              <AdminDashboard />
+            </ProtectedRoute>
+          }
+        />
+        
+        {/* Admin Dashboard Route */}
+        <Route
+          path="/admin"
+          element={
+            <ProtectedRoute>
+              <AdminDashboard />
             </ProtectedRoute>
           }
         />
