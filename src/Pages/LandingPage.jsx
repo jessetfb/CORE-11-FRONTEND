@@ -7,28 +7,36 @@ import 'bootstrap/dist/css/bootstrap.min.css'; // Ensure Bootstrap is included
 const LandingPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:5000/token', { email, password });
-      const token = response.data.access_token;
+      // Send login request to the backend
+      const response = await axios.post('http://localhost:5000/api/login', { email, password });
 
-      // Store the token in localStorage
+      const { token, user } = response.data;
+
+      // Store the token and user information in localStorage
       localStorage.setItem('token', token);
+      localStorage.setItem('user', JSON.stringify(user));
 
-      // Redirect to the home page or dashboard after successful login
-      navigate('/');
+      // Redirect to the appropriate page based on user role
+      if (user.isAdmin) {
+        navigate('/admin-dashboard');
+      } else {
+        navigate('/user-dashboard');
+      }
     } catch (error) {
       if (error.response && error.response.status === 401) {
         // Redirect to the registration page if unauthorized
         navigate('/register');
       } else {
         console.error('An error occurred during login:', error);
-        // Optionally, show an error message to the user
-        alert('An error occurred. Please try again.');
+        // Show an error message to the user
+        setError('An error occurred. Please try again.');
       }
     }
   };
@@ -82,6 +90,9 @@ const LandingPage = () => {
             >
               Login
             </Button>
+
+            {/* Error Message */}
+            {error && <p className="text-red-500 text-center mt-4">{error}</p>}
           </Form>
         </div>
       </div>
