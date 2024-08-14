@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Container, Row, Col, Card, Spinner, Alert } from 'react-bootstrap';
+import "/home/joey/development/code/phase-5/final/project/CORE-11-FRONTEND/vite-project/src/components/hashtags.css"
 
 const HashtagPage = () => {
   const { tag } = useParams();
@@ -16,7 +17,7 @@ const HashtagPage = () => {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch(`http://127.0.0.1:5000/hashtags`); // Update with actual API endpoint
+      const response = await fetch(`http://127.0.0.1:5000/hashtags`); 
       if (response.ok) {
         const data = await response.json();
         setPosts(data);
