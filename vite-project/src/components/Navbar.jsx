@@ -1,12 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBell, faEnvelope, faSearch, faUser } from '@fortawesome/free-solid-svg-icons';
 
-const NavbarComponent = ({ isLoggedIn, user }) => {
+const NavbarComponent = ({ isLoggedIn, user, onLogout }) => {
+  const [loggedIn, setLoggedIn] = useState(isLoggedIn);
   const [showNotifications, setShowNotifications] = useState(false);
   const [showMessages, setShowMessages] = useState(false);
+  const [showLogoutModal, setShowLogoutModal] = useState(false); // New state for logout modal
   const navigate = useNavigate();
+
+  // Sync loggedIn state with isLoggedIn prop
+  useEffect(() => {
+    setLoggedIn(isLoggedIn);
+  }, [isLoggedIn]);
 
   const handleSearch = (event) => {
     event.preventDefault();
@@ -15,12 +22,25 @@ const NavbarComponent = ({ isLoggedIn, user }) => {
     // Implement search logic
   };
 
-  const handleLogin = () => {
-    navigate('/login');
+  const handleLoginLogout = () => {
+    if (loggedIn) {
+      setShowLogoutModal(true); // Show the logout confirmation modal
+    } else {
+      navigate('/login');
+    }
+  };
+
+  const confirmLogout = () => {
+    console.log('User logged out');
+    setLoggedIn(false);
+    setShowLogoutModal(false);
+    localStorage.removeItem('token'); // Clear token from localStorage
+    onLogout(); // Call onLogout prop to update state in parent component
+    navigate('/login'); // Navigate to login page after logout
   };
 
   const handleProfileClick = () => {
-    if (isLoggedIn) {
+    if (loggedIn) {
       const redirectTo = user.isAdmin ? '/admin-dashboard' : '/user-dashboard';
       navigate(redirectTo);
     } else {
@@ -86,8 +106,8 @@ const NavbarComponent = ({ isLoggedIn, user }) => {
             5
           </span>
         </button>
-        {isLoggedIn ? (
-          <div className="relative">
+        {loggedIn ? (
+          <>
             <button 
               onClick={handleProfileClick} 
               className="text-gray-800 hover:text-blue-500 transition-colors duration-300"
@@ -102,10 +122,16 @@ const NavbarComponent = ({ isLoggedIn, user }) => {
                 <FontAwesomeIcon icon={faUser} />
               )}
             </button>
-          </div>
+            <button 
+              onClick={handleLoginLogout} 
+              className="text-gray-800 hover:text-blue-500 transition-colors duration-300"
+            >
+              Logout
+            </button>
+          </>
         ) : (
           <button 
-            onClick={handleLogin} 
+            onClick={handleLoginLogout} 
             className="text-gray-800 hover:text-blue-500 transition-colors duration-300"
           >
             <FontAwesomeIcon icon={faUser} /> Login
@@ -145,6 +171,32 @@ const NavbarComponent = ({ isLoggedIn, user }) => {
             >
               Close
             </button>
+          </div>
+        </div>
+      )}
+
+      {/* Logout Confirmation Modal */}
+      {showLogoutModal && (
+        <div 
+          className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+        >
+          <div className="bg-white p-6 rounded-lg shadow-xl max-w-sm w-full">
+            <h2 className="text-lg font-semibold text-gray-800">Confirm Logout</h2>
+            <p className="mt-4 text-gray-600">Are you sure you want to log out?</p>
+            <div className="mt-6 flex justify-end space-x-4">
+              <button 
+                onClick={() => setShowLogoutModal(false)} 
+                className="px-4 py-2 bg-gray-300 text-gray-700 rounded-full hover:bg-gray-400 shadow-md transition-colors duration-300"
+              >
+                Cancel
+              </button>
+              <button 
+                onClick={confirmLogout} 
+                className="px-4 py-2 bg-red-500 text-white rounded-full hover:bg-red-600 shadow-md transition-colors duration-300"
+              >
+                Logout
+              </button>
+            </div>
           </div>
         </div>
       )}

@@ -47,7 +47,7 @@ const LandingPage = () => {
         {/* Form Container with Gradient Background */}
         <div className="p-8 bg-gradient-to-r from-purple-400 via-blue-500 to-indigo-600 rounded-lg shadow-lg animate-zoomIn">
           <h2 className="text-3xl font-bold text-center mb-6 text-white">Login</h2>
-          <Form onSubmit={handleLogin} className="space-y-4">
+          <Form onSubmit={handleLogin} className="space-y-4" autoComplete="off">
             <Form.Group controlId="formEmail">
               <Form.Label className="text-white">Email address</Form.Label>
               <Form.Control
@@ -56,6 +56,7 @@ const LandingPage = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
+                autoComplete="off"
                 className="rounded-md border-gray-300 shadow-sm bg-white text-gray-900 focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
               />
             </Form.Group>
@@ -68,6 +69,7 @@ const LandingPage = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
+                autoComplete="off"
                 className="rounded-md border-gray-300 shadow-sm bg-white text-gray-900 focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
               />
             </Form.Group>

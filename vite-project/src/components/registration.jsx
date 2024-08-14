@@ -34,7 +34,8 @@ const Register = () => {
         setConfirmPassword('');
         setError('');
 
-        navigate('/');
+        // Redirect to the login page
+        navigate('/login');
       } catch (error) {
         if (error.response) {
           setError(error.response.data.message || 'An error occurred during registration.');
