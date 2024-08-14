@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Button, Card } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import '../style.css'; // Import custom styles
+import '/home/joey/development/code/phase-5/final/project/CORE-11-FRONTEND/vite-project/src/components/hashtags.css'; // Import custom styles
 
 const HashtagsSection = () => {
   const [hashtags, setHashtags] = useState([]);
@@ -9,15 +9,18 @@ const HashtagsSection = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Fetch hashtags from the backend or use dummy data
     fetchHashtags();
   }, []);
 
   const fetchHashtags = async () => {
     try {
-      const response = await fetch('http://localhost:5000/hashtags'); // Update with actual API endpoint
-      const data = await response.json();
-      setHashtags(data);
+      const response = await fetch('http://127.0.0.1:5000/hashtags'); 
+      if (response.ok) {
+        const data = await response.json();
+        setHashtags(data);
+      } else {
+        console.error('Failed to fetch hashtags:', response.statusText);
+      }
     } catch (error) {
       console.error('Failed to fetch hashtags:', error);
     }
@@ -28,11 +31,11 @@ const HashtagsSection = () => {
   };
 
   const handlePrev = () => {
-    setCurrentIndex(Math.max(currentIndex - 1, 0));
+    setCurrentIndex(Math.max(currentIndex - 10, 0));
   };
 
   const handleNext = () => {
-    setCurrentIndex(Math.min(currentIndex + 1, hashtags.length - 1));
+    setCurrentIndex(Math.min(currentIndex + 10, hashtags.length - 10));
   };
 
   return (
@@ -44,18 +47,16 @@ const HashtagsSection = () => {
           </Button>
         </Col>
         <Col>
-          <Row>
+          <div className="hashtags-container">
             {hashtags.slice(currentIndex, currentIndex + 10).map((hashtag) => (
-              <Col key={hashtag.id} md={2} className="mb-3">
-                <Card onClick={() => handleHashtagClick(hashtag.tag)} className="hashtag-card">
-                  <Card.Img variant="top" src={hashtag.imageUrl} />
-                  <Card.Body>
-                    <Card.Title>{hashtag.tag}</Card.Title>
-                  </Card.Body>
-                </Card>
-              </Col>
+              <Card key={hashtag.id} onClick={() => handleHashtagClick(hashtag.tag)} className="hashtag-card">
+                <Card.Img variant="top" src={hashtag.imageUrl} alt={hashtag.tag} />
+                <Card.Body>
+                  <Card.Title>{hashtag.tag}</Card.Title>
+                </Card.Body>
+              </Card>
             ))}
-          </Row>
+          </div>
         </Col>
         <Col xs="auto">
           <Button variant="outline-primary" onClick={handleNext} disabled={currentIndex + 10 >= hashtags.length}>
