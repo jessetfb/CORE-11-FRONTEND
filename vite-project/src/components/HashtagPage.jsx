@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Container, Row, Col, Card, Spinner, Alert } from 'react-bootstrap';
-import "/home/joey/development/code/phase-5/final/project/CORE-11-FRONTEND/vite-project/src/components/hashtags.css"
+
 
 const HashtagPage = () => {
   const { tag } = useParams();
