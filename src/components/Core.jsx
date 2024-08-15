@@ -61,7 +61,7 @@ const Core = () => {
                     <img
                       src={card.media_url || 'https://via.placeholder.com/300x200?text=No+Image+Available'}
                       alt={card.title || 'Untitled'}
-                      className="w-full h-64 object-cover"
+                      className="w-full h-64 object-cover rounded-[20%]" // Adjust shape with Tailwind classes
                     />
                     <div className="p-4 bg-white">
                       <h3 className="text-lg font-semibold truncate">{card.title || 'Untitled'}</h3>

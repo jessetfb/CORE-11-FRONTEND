@@ -3,10 +3,13 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './Pages/HomePage';
 import LandingPage from './Pages/LandingPage';
 import Register from './components/Registration'; // Ensure proper casing
-import profile from './components/Profile'; // Ensure proper casing
+import Profile from './components/Profile'; // Ensure proper casing
 import CreateCore from './Pages/CreateCore'; // Ensure proper casing
 import ProtectedRoute from './components/ProtectedRoute';
 import CorePage from './components/CorePage';
+import User from './components/User'; // Correctly imported User component
+import Dashboard from './Pages/Dashboard'; // Correctly imported Dashboard component
+import Admin from './components/Admin'; // Correctly imported Admin component
 import HashtagPage from './components/HashtagPage';
 import HashtagsSection from './components/HashtagsSection';
 
@@ -39,7 +42,7 @@ function AppRoutes() {
           path="/profile"
           element={
             <ProtectedRoute>
-              <profile />
+              <Profile />
             </ProtectedRoute>
           }
         />
@@ -64,6 +67,30 @@ function AppRoutes() {
           element={
             <ProtectedRoute>
               <HashtagsSection />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/Admin"
+          element={
+            <ProtectedRoute>
+              <Admin />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/user"
+          element={
+            <ProtectedRoute>
+              <User />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/Dashboard"
+          element={
+            <ProtectedRoute>
+              <Dashboard />
             </ProtectedRoute>
           }
         />

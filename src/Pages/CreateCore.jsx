@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const CreateCore = () => {
+const CreateCore = ({ onSaveCore }) => {  
     const [coreTitle, setCoreTitle] = useState('');
     const [coreDescription, setCoreDescription] = useState('');
     const [link, setLink] = useState('');
@@ -41,7 +41,16 @@ const CreateCore = () => {
             return;
         }
 
-        // Reset form
+        const newCore = {
+            title: coreTitle,
+            description: coreDescription,
+            link,
+            hashtag,
+            image: imageToSave,
+        };
+
+        onSaveCore(newCore);
+
         setCoreTitle('');
         setCoreDescription('');
         setLink('');
@@ -50,29 +59,11 @@ const CreateCore = () => {
         setImageUrl('');
         setErrorMessage('');
 
-        // Simulate sending data to the backend and then navigate
-        // Replace with actual API call
-        await fetch('/api/submit-core', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                title: coreTitle,
-                description: coreDescription,
-                link,
-                hashtag,
-                image: imageToSave,
-            }),
-        });
-
-        // Navigate to home page with image data
-        navigate('/', { state: { image: imageToSave, title: coreTitle, description: coreDescription, link, hashtag } });
+        navigate('/', { state: newCore });
     };
 
     return (
         <div className="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-md flex">
-            {/* Left Side - Plus Button */}
             <div className="w-1/12 pr-4 border-r border-gray-300 flex flex-col justify-center">
                 <label htmlFor="imageUpload" className="bg-black text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-500 cursor-pointer">
                     +
@@ -85,7 +76,6 @@ const CreateCore = () => {
                 />
             </div>
 
-            {/* Left Side - Create Core and Picture Frame */}
             <div className="w-1/2 pr-6 border-r border-gray-300 flex flex-col">
                 <div className="relative mb-4">
                     <h2 className="text-2xl font-bold mb-6 ml-4">CREATE CORE</h2>
@@ -132,7 +122,6 @@ const CreateCore = () => {
                 </div>
             </div>
 
-            {/* Right Side - Form */}
             <div className="w-1/2 pl-6">
                 {errorMessage && (
                     <div className="mb-4 p-3 bg-red-100 text-red-700 rounded">
@@ -141,57 +130,69 @@ const CreateCore = () => {
                 )}
                 <form onSubmit={handleSubmit}>
                     <div className="mb-4">
-                        <label htmlFor="Title" className="block text-gray-700 font-medium mb-2">Title</label>
+                        <label className="block text-gray-700 font-semibold mb-2" htmlFor="coreTitle">
+                            Core Title
+                        </label>
                         <input
                             type="text"
-                            id="Title"
+                            id="coreTitle"
                             value={coreTitle}
                             onChange={handleTitleChange}
                             className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                            placeholder="Add title"
+                            placeholder="Enter the title"
+                            required
                         />
                     </div>
+
                     <div className="mb-4">
-                        <label htmlFor="Description" className="block text-gray-700 font-medium mb-2">Description</label>
+                        <label className="block text-gray-700 font-semibold mb-2" htmlFor="coreDescription">
+                            Core Description
+                        </label>
                         <textarea
-                            id="Description"
+                            id="coreDescription"
                             value={coreDescription}
                             onChange={handleDescriptionChange}
                             className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                            placeholder="Add a detailed description"
+                            placeholder="Enter the description"
                             rows="4"
+                            required
                         />
                     </div>
+
                     <div className="mb-4">
-                        <label htmlFor="link" className="block text-gray-700 font-medium mb-2">Link</label>
+                        <label className="block text-gray-700 font-semibold mb-2" htmlFor="link">
+                            Link
+                        </label>
                         <input
                             type="text"
                             id="link"
                             value={link}
                             onChange={handleLinkChange}
                             className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                            placeholder="Add link"
+                            placeholder="Enter the link"
                         />
                     </div>
+
                     <div className="mb-4">
-                        <label htmlFor="hashtag" className="block text-gray-700 font-medium mb-2">Hashtag</label>
+                        <label className="block text-gray-700 font-semibold mb-2" htmlFor="hashtag">
+                            Hashtag
+                        </label>
                         <input
                             type="text"
                             id="hashtag"
                             value={hashtag}
                             onChange={handleHashtagChange}
                             className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                            placeholder="Choose a hashtag"
+                            placeholder="Enter a hashtag"
                         />
                     </div>
-                    <div>
-                        <button
-                            type="submit"
-                            className="bg-black text-white w-full py-2 rounded-md hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-500"
-                        >
-                            Submit
-                        </button>
-                    </div>
+
+                    <button
+                        type="submit"
+                        className="bg-blue-500 text-white w-full py-3 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    >
+                        Create Core
+                    </button>
                 </form>
             </div>
         </div>
