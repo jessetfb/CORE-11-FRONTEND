@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBell, faEnvelope, faSearch, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faBell, faEnvelope, faSearch, faUser, faSignIn } from '@fortawesome/free-solid-svg-icons';
 
 const NavbarComponent = ({ isLoggedIn, user, onLogout }) => {
   const [loggedIn, setLoggedIn] = useState(isLoggedIn);
   const [showNotifications, setShowNotifications] = useState(false);
   const [showMessages, setShowMessages] = useState(false);
-  const [showLogoutModal, setShowLogoutModal] = useState(false); // New state for logout modal
+  const [showLogoutModal, setShowLogoutModal] = useState(false); 
   const navigate = useNavigate();
 
-  // Sync loggedIn state with isLoggedIn prop
   useEffect(() => {
     setLoggedIn(isLoggedIn);
   }, [isLoggedIn]);
@@ -19,24 +18,22 @@ const NavbarComponent = ({ isLoggedIn, user, onLogout }) => {
     event.preventDefault();
     const query = event.target.searchInput.value;
     console.log('Searching for:', query);
-    // Implement search logic
   };
 
   const handleLoginLogout = () => {
     if (loggedIn) {
-      setShowLogoutModal(true); // Show the logout confirmation modal
+      setShowLogoutModal(true);
     } else {
       navigate('/login');
     }
   };
 
   const confirmLogout = () => {
-    console.log('User logged out');
     setLoggedIn(false);
     setShowLogoutModal(false);
-    localStorage.removeItem('token'); // Clear token from localStorage
-    onLogout(); // Call onLogout prop to update state in parent component
-    navigate('/login'); // Navigate to login page after logout
+    localStorage.removeItem('token');
+    onLogout();
+    navigate('/login');
   };
 
   const handleProfileClick = () => {
@@ -93,35 +90,33 @@ const NavbarComponent = ({ isLoggedIn, user, onLogout }) => {
           className="relative text-gray-800 hover:text-blue-500 transition-colors duration-300"
         >
           <FontAwesomeIcon icon={faBell} />
-          <span className="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2 bg-red-600 text-white text-xs rounded-full px-1.5 py-0.5">
-            3
-          </span>
+          {3 > 0 && (
+            <span className="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2 bg-red-600 text-white text-xs rounded-full px-1.5 py-0.5">
+              3
+            </span>
+          )}
         </button>
         <button 
           onClick={() => setShowMessages(true)} 
           className="relative text-gray-800 hover:text-blue-500 transition-colors duration-300"
         >
           <FontAwesomeIcon icon={faEnvelope} />
-          <span className="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2 bg-red-600 text-white text-xs rounded-full px-1.5 py-0.5">
-            5
-          </span>
+          {5 > 0 && (
+            <span className="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2 bg-red-600 text-white text-xs rounded-full px-1.5 py-0.5">
+              7
+            </span>
+          )}
         </button>
+        <button 
+              onClick={handleProfileClick} 
+              className="flex items-center text-gray-800 hover:text-blue-500 transition-colors duration-300"
+            >
+              <FontAwesomeIcon icon={faUser} className="mr-2" />
+              
+              
+            </button>
         {loggedIn ? (
           <>
-            <button 
-              onClick={handleProfileClick} 
-              className="text-gray-800 hover:text-blue-500 transition-colors duration-300"
-            >
-              {user.profilePicture ? (
-                <img 
-                  src={user.profilePicture} 
-                  alt="Profile" 
-                  className="w-10 h-10 rounded-full shadow-md transform transition-transform hover:scale-105"
-                />
-              ) : (
-                <FontAwesomeIcon icon={faUser} />
-              )}
-            </button>
             <button 
               onClick={handleLoginLogout} 
               className="text-gray-800 hover:text-blue-500 transition-colors duration-300"
@@ -134,7 +129,7 @@ const NavbarComponent = ({ isLoggedIn, user, onLogout }) => {
             onClick={handleLoginLogout} 
             className="text-gray-800 hover:text-blue-500 transition-colors duration-300"
           >
-            <FontAwesomeIcon icon={faUser} /> Login
+            <FontAwesomeIcon icon={faSignIn} /> Login
           </button>
         )}
       </div>
@@ -188,7 +183,7 @@ const NavbarComponent = ({ isLoggedIn, user, onLogout }) => {
                 onClick={() => setShowLogoutModal(false)} 
                 className="px-4 py-2 bg-gray-300 text-gray-700 rounded-full hover:bg-gray-400 shadow-md transition-colors duration-300"
               >
-                Cancel
+                Keep me logged in
               </button>
               <button 
                 onClick={confirmLogout} 

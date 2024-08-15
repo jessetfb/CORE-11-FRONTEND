@@ -18,12 +18,13 @@ function AppRoutes() {
         <Route path="/Register" element={<Register />} />
         <Route path="/profile/:id" element={<profile />} />
         <Route path="/Corepage/:id" element={<Corepage />} />
-        <Route path="/CreateCore" element={<CreateCore />} />
+        
 
         {/* Public Routes */}
         <Route path="/" element={<Home />} />
         <Route path="/hashtag/:tag" element={<HashtagPage />} />
         <Route path="/core/:id" element={<Corepage />} />
+        <Route path="/CreateCore" element={<CreateCore />} />
       </Routes>
     </Router>
   );
