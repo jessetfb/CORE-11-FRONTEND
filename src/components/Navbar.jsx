@@ -7,8 +7,7 @@ const NavbarComponent = ({ isLoggedIn, user, onLogout }) => {
   const [loggedIn, setLoggedIn] = useState(isLoggedIn);
   const [showNotifications, setShowNotifications] = useState(false);
   const [showMessages, setShowMessages] = useState(false);
-  const [showProfileDropdown, setShowProfileDropdown] = useState(false);
-  const [showLogoutModal, setShowLogoutModal] = useState(false); // State for logout modal
+  const [showLogoutModal, setShowLogoutModal] = useState(false); // New state for logout modal
   const navigate = useNavigate();
 
   // Sync loggedIn state with isLoggedIn prop
@@ -49,14 +48,6 @@ const NavbarComponent = ({ isLoggedIn, user, onLogout }) => {
     }
   };
 
-  const handleCreateClick = () => {
-    if (loggedIn) {
-      navigate('/create-core'); // Navigate to the CreateCore page
-    } else {
-      navigate('/login');
-    }
-  };
-
   return (
     <nav className="bg-white shadow-lg py-4 px-6 flex justify-between items-center">
       <div className="flex items-center">
@@ -73,7 +64,7 @@ const NavbarComponent = ({ isLoggedIn, user, onLogout }) => {
             Home
           </button>
           <button 
-            onClick={handleCreateClick} 
+            onClick={() => navigate('/create-core')} 
             className="text-gray-800 font-semibold hover:text-blue-500 transition-colors duration-300"
           >
             Create
@@ -103,7 +94,7 @@ const NavbarComponent = ({ isLoggedIn, user, onLogout }) => {
         >
           <FontAwesomeIcon icon={faBell} />
           <span className="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2 bg-red-600 text-white text-xs rounded-full px-1.5 py-0.5">
-            20
+            3
           </span>
         </button>
         <button 
@@ -115,31 +106,29 @@ const NavbarComponent = ({ isLoggedIn, user, onLogout }) => {
             5
           </span>
         </button>
-        <button 
-          onClick={() => setShowProfileDropdown(!showProfileDropdown)} 
-          className="relative text-gray-800 hover:text-blue-500 transition-colors duration-300"
-        >
-          {loggedIn ? (
-            user.profilePicture ? (
-              <img 
-                src={user.profilePicture} 
-                alt="Profile" 
-                className="w-10 h-10 rounded-full shadow-md transform transition-transform hover:scale-105"
-              />
-            ) : (
-              <FontAwesomeIcon icon={faUser} />
-            )
-          ) : (
-            <FontAwesomeIcon icon={faUser} />
-          )}
-        </button>
         {loggedIn ? (
-          <button 
-            onClick={handleLoginLogout} 
-            className="text-gray-800 hover:text-blue-500 transition-colors duration-300"
-          >
-            Logout
-          </button>
+          <>
+            <button 
+              onClick={handleProfileClick} 
+              className="text-gray-800 hover:text-blue-500 transition-colors duration-300"
+            >
+              {user.profilePicture ? (
+                <img 
+                  src={user.profilePicture} 
+                  alt="Profile" 
+                  className="w-10 h-10 rounded-full shadow-md transform transition-transform hover:scale-105"
+                />
+              ) : (
+                <FontAwesomeIcon icon={faUser} />
+              )}
+            </button>
+            <button 
+              onClick={handleLoginLogout} 
+              className="text-gray-800 hover:text-blue-500 transition-colors duration-300"
+            >
+              Logout
+            </button>
+          </>
         ) : (
           <button 
             onClick={handleLoginLogout} 
@@ -152,7 +141,9 @@ const NavbarComponent = ({ isLoggedIn, user, onLogout }) => {
 
       {/* Notifications Modal */}
       {showNotifications && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div 
+          className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+        >
           <div className="bg-white p-6 rounded-lg shadow-xl max-w-sm w-full">
             <h2 className="text-lg font-semibold text-gray-800">Notifications</h2>
             <p className="mt-4 text-gray-600">Here are your notifications.</p>
@@ -168,7 +159,9 @@ const NavbarComponent = ({ isLoggedIn, user, onLogout }) => {
 
       {/* Messages Modal */}
       {showMessages && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div 
+          className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+        >
           <div className="bg-white p-6 rounded-lg shadow-xl max-w-sm w-full">
             <h2 className="text-lg font-semibold text-gray-800">Messages</h2>
             <p className="mt-4 text-gray-600">Here are your messages.</p>
@@ -184,7 +177,9 @@ const NavbarComponent = ({ isLoggedIn, user, onLogout }) => {
 
       {/* Logout Confirmation Modal */}
       {showLogoutModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div 
+          className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+        >
           <div className="bg-white p-6 rounded-lg shadow-xl max-w-sm w-full">
             <h2 className="text-lg font-semibold text-gray-800">Confirm Logout</h2>
             <p className="mt-4 text-gray-600">Are you sure you want to log out?</p>

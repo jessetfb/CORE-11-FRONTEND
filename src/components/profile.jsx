@@ -1,18 +1,17 @@
 // src/Routes.jsx
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import user from './components/user'; // Import User component with capitalized name
-import AdminDashboard from './Pages/AdminDashboard'; // Import AdminDashboard with correct name
+import user from './user'; // Import User component with capitalized name
+import Admin from '../Pages/dashboard.jsx'; // Import AdminDashboard with correct name
 
-function AppRoutes() {
+function profile() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Home />} />
         <Route path="/user" element={<user />} />
-        <Route path="/dashboard" element={<AdminDashboard />} />
+        <Route path="/dashboard" element={<Admin />} />
       </Routes>
     </Router>
   );
 }
 
-export default AppRoutes;
+export default profile;
