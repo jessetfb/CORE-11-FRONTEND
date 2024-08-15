@@ -23,7 +23,16 @@ const Messages = ({ onClose }) => {
       return;
     }
 
+
     const client = new W3CWebSocket(`${wsUrl}?token=${token}`);
+
+    // Create WebSocket client
+
+    const client = new W3CWebSocket(`${wsUrl}?token=${token}`);
+
+    const client = new W3CWebSocket(${wsUrl}?token=${token});
+
+
 
     client.onopen = () => {
       console.log('WebSocket connection opened');
@@ -49,6 +58,7 @@ const Messages = ({ onClose }) => {
   }, [token, wsUrl]);
 
   useEffect(() => {
+
     const fetchUsers = async () => {
       setLoadingUsers(true);
       try {
@@ -63,6 +73,26 @@ const Messages = ({ onClose }) => {
         } else {
           console.error('Failed to fetch users');
           setError('Failed to fetch users');
+
+    // Fetch users when the component mounts
+    fetchUsers();
+  }, []);
+
+  useEffect(() => {
+    if (selectedUser) {
+      fetchMessages();
+    }
+  }, [selectedUser]);
+
+  const fetchUsers = async () => {
+    try {
+      const response = await fetch('http://127.0.0.1:8000/users', {
+        headers: {
+
+          'Authorization': `Bearer ${token}`
+
+          'Authorization': Bearer ${token}
+
         }
       } catch (error) {
         console.error('Error fetching users:', error);
@@ -74,6 +104,7 @@ const Messages = ({ onClose }) => {
 
     fetchUsers();
   }, [token]);
+
 
   useEffect(() => {
     const fetchMessages = async () => {
@@ -92,6 +123,18 @@ const Messages = ({ onClose }) => {
         } else {
           console.error('Failed to fetch messages');
           setError('Failed to fetch messages');
+
+    try {
+
+      const response = await fetch(`http://127.0.0.1:8000/messages?with=${selectedUser.id}`, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+
+      const response = await fetch(http://127.0.0.1:8000/messages?with=${selectedUser.id}, {
+        headers: {
+          'Authorization': Bearer ${token}
+
+
         }
       } catch (error) {
         console.error('Error fetching messages:', error);
@@ -112,7 +155,14 @@ const Messages = ({ onClose }) => {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
+
             'Authorization': `Bearer ${token}`
+
+            'Authorization': `Bearer ${token}`
+
+            'Authorization': Bearer ${token}
+
+
           },
           body: JSON.stringify({
             recipient_id: selectedUser.id,
@@ -202,8 +252,24 @@ const Messages = ({ onClose }) => {
                 Chat with {selectedUser.username}
               </div>
               <div className="chat-messages" ref={chatMessagesRef}>
+
                 {loadingMessages ? (
                   <p>Loading messages...</p>
+
+                {messages.length > 0 ? (
+                  messages.map((msg, index) => (
+                    <div
+                      key={index}
+
+                      className={`message ${msg.sender?.id === token ? 'sent' : 'received'}`}
+                      className={message ${msg.sender?.id === token ? 'sent' : 'received'}}
+
+                    >
+                      <span className="text">{msg.content}</span>
+                      <p className="message-time">{msg.time}</p>
+                    </div>
+                  ))
+
                 ) : (
                   messages.length > 0 ? (
                     messages.map((msg, index) => (
@@ -252,4 +318,12 @@ const Messages = ({ onClose }) => {
   );
 };
 
+
 export default Messages;
+
+
+export default Messages;
+
+export default Messages;
+
+
