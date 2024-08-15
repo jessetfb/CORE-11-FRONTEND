@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Button, Card } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import '/home/joey/development/code/phase-5/final/project/CORE-11-FRONTEND/vite-project/src/components/hashtags.css'; // Import custom styles
+
 
 const HashtagsSection = () => {
   const [hashtags, setHashtags] = useState([]);
