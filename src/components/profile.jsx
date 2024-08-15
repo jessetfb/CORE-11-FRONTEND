@@ -1,17 +1,31 @@
-// src/Routes.jsx
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import user from './user'; // Import User component with capitalized name
-import Admin from '../Pages/dashboard.jsx'; // Import AdminDashboard with correct name
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import user from './user';
+import Admin from './admin';
 
-function profile() {
+const Profile = ({ user }) => {
+  const navigate = useNavigate();
+  const [dashboardComponent, setDashboardComponent] = useState(null);
+
+  useEffect(() => {
+    if (user) {
+      const component = user.isAdmin ? <Admin user={user} /> : <user user={user} />;
+      setDashboardComponent(component);
+    } else {
+      navigate('/login');
+    }
+  }, [user, navigate]);
+
+  if (!user) {
+    return <div>Loading...</div>;
+  }
+
   return (
-    <Router>
-      <Routes>
-        <Route path="/user" element={<user />} />
-        <Route path="/dashboard" element={<Admin />} />
-      </Routes>
-    </Router>
+    <div>
+      <h1>Welcome, {user.name}</h1>
+      {dashboardComponent}
+    </div>
   );
-}
+};
 
-export default profile;
+export default Profile;
