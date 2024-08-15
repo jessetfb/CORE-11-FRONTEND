@@ -1,12 +1,12 @@
 // src/Routes.jsx
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Home from './Pages/HomePage';
+import Home from './Pages/HomePage'; // Make sure this path is correct
 import LandingPage from './Pages/LandingPage';
 import Register from './components/registration';
 import ProtectedRoute from './components/ProtectedRoute';
 import HashtagPage from './components/HashtagPage'; // Import the HashtagPage component
-import HashtagsSection from './components/HashtagsSection'; // Import the HashtagsSection component
 import Dashboard from "./Pages/dashboard"; // Import Dashboard from the Pages folder
+import CreateCore from './components/CreateCore';
 
 function AppRoutes() {
   return (
@@ -32,12 +32,19 @@ function AppRoutes() {
             </ProtectedRoute>
           } 
         />
-        {/* Add other protected routes here */}
         <Route 
           path="/dashboard" 
           element={
             <ProtectedRoute>
               <Dashboard /> {/* Route for the Dashboard page */}
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/create-core" 
+          element={
+            <ProtectedRoute>
+              <CreateCore /> {/* Route for creating a new core */}
             </ProtectedRoute>
           } 
         />

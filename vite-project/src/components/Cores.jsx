@@ -5,6 +5,8 @@ import axios from 'axios';
 
 const Core = () => {
   const [cardsData, setCardsData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
   const apiUrl = 'http://127.0.0.1:5000/core';
 
   useEffect(() => {
@@ -12,42 +14,53 @@ const Core = () => {
       try {
         const response = await axios.get(apiUrl, {
           headers: {
-            'Content-Type': 'application/json'
-          }
+            'Content-Type': 'application/json',
+          },
         });
         console.log('Fetched data:', response.data);
-  
+
         if (response.status === 200 && Array.isArray(response.data)) {
           setCardsData(response.data);
         } else {
-          console.error('Unexpected data format or status code:', response.status, response.data);
-          setCardsData([]); 
+          throw new Error(`Unexpected data format or status code: ${response.status}`);
         }
       } catch (error) {
         console.error('Error fetching data:', error);
-        setCardsData([]); 
+        setError('Failed to load data. Please try again later.');
+      } finally {
+        setIsLoading(false);
       }
     };
-  
+
     fetchData();
   }, [apiUrl]);
+
   return (
     <Container>
       <Row>
-        {cardsData.length > 0 ? (
+        {isLoading ? (
+          <p>Loading...</p>
+        ) : error ? (
+          <p>{error}</p>
+        ) : cardsData.length > 0 ? (
           cardsData.slice(0, 20).map((card, index) => (
-            <Col 
-              key={index} 
-              xs={12} sm={6} md={4} lg={3} 
-              className={`mb-4 ${(index % 4 === 0 || index % 5 === 0) ? 'col-lg-4' : ''}`} 
+            <Col
+              key={card.id} // Use unique id as key
+              xs={12} sm={6} md={4} lg={3}
+              className={`mb-4 ${(index % 4 === 0 || index % 5 === 0) ? 'col-lg-4' : ''}`}
             >
               <Link to={`/core/${card.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-                <Card className="rounded shadow-sm" style={{ height: '100%' }}>
-                  <Card.Img 
-                    variant="top" 
-                    src={card.imageUrl} 
-                    alt={card.description} 
-                    style={{ borderTopLeftRadius: '0.5rem', borderTopRightRadius: '0.5rem' }} 
+                <Card className="rounded shadow-sm h-100">
+                  <Card.Img
+                    variant="top"
+                    src={card.imageUrl}
+                    alt={card.description}
+                    style={{
+                      borderTopLeftRadius: '0.5rem',
+                      borderTopRightRadius: '0.5rem',
+                      objectFit: 'cover',
+                      height: '200px', // Adjust height for consistent image size
+                    }}
                   />
                   <Card.Body>
                     <Card.Text>{card.description}</Card.Text>
