@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
 
 const Register = () => {
   const [username, setUsername] = useState('');
@@ -44,6 +45,26 @@ const Register = () => {
         }
       }
     }
+  };
+
+  const handleGoogleSuccess = async (response) => {
+    try {
+      const token = response.credential;
+      // Send the token to your backend server for validation and user creation
+      const res = await axios.post('http://localhost:5000/google-login', { token });
+
+      // Store the returned token in localStorage
+      localStorage.setItem('token', res.data.access_token);
+
+      // Redirect to the dashboard or other secured page
+      navigate('/dashboard');
+    } catch (error) {
+      setError('Google Sign-In failed. Please try again.');
+    }
+  };
+
+  const handleGoogleFailure = () => {
+    setError('Google Sign-In was unsuccessful. Please try again later.');
   };
 
   return (
@@ -137,6 +158,17 @@ const Register = () => {
               Register
             </button>
           </form>
+
+          <div className="mt-8 flex items-center justify-center">
+            <GoogleOAuthProvider clientId="YOUR_GOOGLE_CLIENT_ID">
+              <GoogleLogin
+                onSuccess={handleGoogleSuccess}
+                onFailure={handleGoogleFailure}
+                theme="filled_blue"
+              />
+            </GoogleOAuthProvider>
+          </div>
+
           <p className="mt-8 text-center text-white">
             Already have an account? <a href="/login" className="text-indigo-300 hover:underline">Sign in</a>
           </p>
