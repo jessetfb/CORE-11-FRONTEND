@@ -65,6 +65,7 @@
   width: 50px;
   height: 50px;
   margin-right: 1rem;
+  
 }
 
 .profile-details {
@@ -103,16 +104,27 @@
 .search-button {
   border-radius: 25px;
 }
+.Brand{
+  /* Apply to the image element */
+.circle-image {
+  width: 100px;  /* Set a specific width */
+  height: 100px; /* Set a specific height to make it a square */
+  border-radius: 50%; /* Makes the image a circle */
+  object-fit: cover;   /* Ensures the image covers the container without distortion */
+}
+                                                                                                            
+}
 /* src/components/Footer.css */
 
 .footer {
-  background-color: #333;
+  background-color: #2e2b2b;
   color: #fff;
-  padding: 20px 0;
+  padding: 10px 0;
   text-align: center;
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 100%;
 }
 
 .footer-container {
