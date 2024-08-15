@@ -1,64 +1,74 @@
-.hashtags-section {
-    margin: 20px 0;
-  }
-  
-  .hashtags-container {
-    display: flex;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    padding: 10px 0;
-    gap: 15px; /* Space between cards */
-  }
-  
-  .hashtag-card {
-    cursor: pointer;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s, box-shadow 0.3s;
-    width: 150px; /* Adjust width as needed */
-  }
-  
-  .hashtag-card:hover {
-    transform: scale(1.05);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-  }
-  
-  .card-img-top {
-    height: 100px; /* Adjust height as needed */
-    object-fit: cover;
-  }
-  
-  .card-body {
-    text-align: center;
-  }
-  
-  .card-title {
-    font-size: 1.1rem;
-    font-weight: bold;
-    color: #333;
-  }
-  .hashtags-section {
-    margin-top: 20px;
-  }
-  
-  .hashtag-card {
-    cursor: pointer;
-    transition: transform 0.2s ease;
-  }
-  
-  .hashtag-card:hover {
-    transform: scale(1.05);
-  }
-  
-  .card-img-top {
-    height: 200px; /* Adjust based on your needs */
-    object-fit: cover;
-  }
-  
-  @media (max-width: 768px) {
-    .card-img-top {
-      height: 150px; /* Adjust based on your needs */
-    }
-  }
-    
+/* src/styles.css */
+
+/* Style for the Boards List */
+.boards-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 20px;
+  justify-content: center;
+}
+
+.board-item {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 200px; /* Adjust as needed */
+  overflow: hidden;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.board-item:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.board-item h2 {
+  margin: 0;
+  font-size: 1.2rem;
+  padding: 10px;
+  text-align: center;
+  background-color: #f8f8f8;
+  color: #333;
+}
+
+/* Style for the Individual Board Page */
+.board {
+  padding: 20px;
+}
+
+.pins {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+}
+
+.pin {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+  width: 200px; /* Adjust as needed */
+}
+
+.pin:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.pin img {
+  width: 100%;
+  height: auto;
+}
+
+.pin p {
+  margin: 0;
+  padding: 10px;
+  text-align: center;
+  background-color: #f8f8f8;
+  color: #333;
+}

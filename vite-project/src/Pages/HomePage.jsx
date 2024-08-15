@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import NavbarComponent from '../components/Navbar';
 import Core from '../components/Cores';
-import HashtagsSection from '../components/HashtagsSection';
 import Footer from '../components/footer';
 import { useNavigate } from 'react-router-dom';
+import CreateHashtags from '../components/CreateHashtags';
+import ManageHashtags from '../components/ManageHashtags';
 
 const Home = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -35,7 +36,7 @@ const Home = () => {
   return (
     <>
       <NavbarComponent isLoggedIn={isLoggedIn} user={user} onLogout={handleLogout} />
-      <HashtagsSection />
+      <CreateHashtags />
       <Core />
       <Footer />
     </>

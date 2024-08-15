@@ -4,9 +4,9 @@ import Home from './Pages/HomePage';
 import LandingPage from './Pages/LandingPage';
 import Register from './components/registration';
 import ProtectedRoute from './components/ProtectedRoute';
-import HashtagPage from './components/HashtagPage'; // Import the HashtagPage component
-import HashtagsSection from './components/HashtagsSection'; // Import the HashtagsSection component
-import Dashboard from "./Pages/dashboard"; // Import Dashboard from the Pages folder
+import CreateHashtags from './components/CreateHashtags';
+import ManageHashtags from './components/ManageHashtags';
+import Dashboard from "./Pages/dashboard";
 
 function AppRoutes() {
   return (
@@ -24,15 +24,25 @@ function AppRoutes() {
             </ProtectedRoute>
           } 
         />
+
         <Route 
-          path="/hashtag/:tag" 
+          path="/create-hashtags" 
           element={
             <ProtectedRoute>
-              <HashtagPage /> {/* Route for hashtag filtering */}
+              <CreateHashtags /> {/* Route for hashtag filtering */}
             </ProtectedRoute>
           } 
         />
-        {/* Add other protected routes here */}
+
+        <Route 
+          path="/board/:id" 
+          element={
+            <ProtectedRoute>
+              <ManageHashtags /> {/* Route for managing hashtags */}
+            </ProtectedRoute>
+          } 
+        />
+
         <Route 
           path="/dashboard" 
           element={
