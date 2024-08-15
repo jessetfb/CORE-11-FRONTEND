@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { GoogleLogin } from '@react-oauth/google';
 
 const Register = () => {
   const [username, setUsername] = useState('');
@@ -35,6 +34,7 @@ const Register = () => {
         setConfirmPassword('');
         setError('');
 
+        // Redirect to the login page
         navigate('/login');
       } catch (error) {
         if (error.response) {
@@ -44,29 +44,6 @@ const Register = () => {
         }
       }
     }
-  };
-
-  const handleGoogleSuccess = async (response) => {
-    try {
-      const { credential } = response;
-
-      // Send the token to your backend
-      const res = await axios.post('http://localhost:5000/google-login', {
-        tokenId: credential,
-      });
-
-      // Save the received token from your backend (if any)
-      const token = res.data.access_token;
-      localStorage.setItem('token', token);
-
-      navigate('/dashboard');
-    } catch (error) {
-      setError('Google login failed.');
-    }
-  };
-
-  const handleGoogleFailure = (error) => {
-    setError('Google login was unsuccessful. Please try again.');
   };
 
   return (
@@ -93,7 +70,6 @@ const Register = () => {
           <h2 className="text-3xl font-extrabold text-center mb-8 text-white">Create Your Account</h2>
           {error && <div className="mb-4 text-red-300 text-center">{error}</div>}
           <form onSubmit={handleRegister} className="space-y-6">
-            {/* Existing form fields */}
             <div className="relative">
               <label className="block text-white text-sm font-bold mb-2" htmlFor="username">
                 Username
@@ -161,16 +137,6 @@ const Register = () => {
               Register
             </button>
           </form>
-
-          <div className="mt-8">
-            <GoogleLogin
-              onSuccess={handleGoogleSuccess}
-              onError={handleGoogleFailure}
-              logoStyle={{ height: '40px' }}
-              style={{ width: '100%', marginTop: '10px' }}
-            />
-          </div>
-
           <p className="mt-8 text-center text-white">
             Already have an account? <a href="/login" className="text-indigo-300 hover:underline">Sign in</a>
           </p>
