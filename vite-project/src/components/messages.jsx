@@ -21,7 +21,11 @@ const Messages = ({ onClose }) => {
     }
 
     // Create WebSocket client
+
     const client = new W3CWebSocket(`${wsUrl}?token=${token}`);
+
+    const client = new W3CWebSocket(${wsUrl}?token=${token});
+
 
     client.onopen = () => {
       console.log('WebSocket connection opened');
@@ -56,7 +60,11 @@ const Messages = ({ onClose }) => {
     try {
       const response = await fetch('http://127.0.0.1:8000/users', {
         headers: {
+
           'Authorization': `Bearer ${token}`
+
+          'Authorization': Bearer ${token}
+
         }
       });
       if (response.ok) {
@@ -74,9 +82,15 @@ const Messages = ({ onClose }) => {
     if (!selectedUser) return;
 
     try {
+
       const response = await fetch(`http://127.0.0.1:8000/messages?with=${selectedUser.id}`, {
         headers: {
           'Authorization': `Bearer ${token}`
+
+      const response = await fetch(http://127.0.0.1:8000/messages?with=${selectedUser.id}, {
+        headers: {
+          'Authorization': Bearer ${token}
+
         }
       });
       if (response.ok) {
@@ -98,7 +112,11 @@ const Messages = ({ onClose }) => {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
+
             'Authorization': `Bearer ${token}`
+
+            'Authorization': Bearer ${token}
+
           },
           body: JSON.stringify({
             recipient_id: selectedUser.id,
@@ -186,7 +204,10 @@ const Messages = ({ onClose }) => {
                   messages.map((msg, index) => (
                     <div
                       key={index}
+
                       className={`message ${msg.sender?.id === token ? 'sent' : 'received'}`}
+                      className={message ${msg.sender?.id === token ? 'sent' : 'received'}}
+
                     >
                       <span className="text">{msg.content}</span>
                       <p className="message-time">{msg.time}</p>
@@ -228,4 +249,8 @@ const Messages = ({ onClose }) => {
   );
 };
 
+
 export default Messages;
+
+export default Messages;
+
