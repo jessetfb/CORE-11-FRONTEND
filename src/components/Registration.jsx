@@ -19,7 +19,7 @@ const Register = () => {
       setError('Passwords do not match.');
     } else {
       try {
-        const response = await axios.post('http://localhost:5000/register', {
+        const response = await axios.post('http://127.0.0.1:8000/register', {
           username,
           email,
           password,

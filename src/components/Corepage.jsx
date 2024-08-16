@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import { Container, Row, Col, Card, Button, Form, Dropdown, Alert, Spinner } from 'react-bootstrap';
 import axios from 'axios';
 
-const apiUrl = 'http://127.0.0.1:5000';
+const apiUrl = 'http://127.0.0.1:8000/';
 
 const CorePage = () => {
   const { id } = useParams();
