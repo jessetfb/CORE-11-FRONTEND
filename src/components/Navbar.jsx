@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBell, faEnvelope, faSearch, faUser, faSignIn } from '@fortawesome/free-solid-svg-icons';
+import { faBell, faEnvelope, faSearch, faUser, faSignIn, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 
 const NavbarComponent = ({ isLoggedIn, user, onLogout }) => {
   const [loggedIn, setLoggedIn] = useState(isLoggedIn);
@@ -38,7 +38,7 @@ const NavbarComponent = ({ isLoggedIn, user, onLogout }) => {
 
   const handleProfileClick = () => {
     if (loggedIn) {
-      const redirectTo = user.isAdmin ? '/admin-dashboard' : '/user-dashboard';
+      const redirectTo = user?.isAdmin ? '/admin-dashboard' : '/user-dashboard';
       navigate(redirectTo);
     } else {
       navigate('/login');
@@ -107,23 +107,13 @@ const NavbarComponent = ({ isLoggedIn, user, onLogout }) => {
             </span>
           )}
         </button>
-        <button 
-              onClick={handleProfileClick} 
-              className="flex items-center text-gray-800 hover:text-blue-500 transition-colors duration-300"
-            >
-              <FontAwesomeIcon icon={faUser} className="mr-2" />
-              
-              
-            </button>
         {loggedIn ? (
-          <>
-            <button 
-              onClick={handleLoginLogout} 
-              className="text-gray-800 hover:text-blue-500 transition-colors duration-300"
-            >
-              Logout
-            </button>
-          </>
+          <button 
+            onClick={handleLoginLogout} 
+            className="text-gray-800 hover:text-blue-500 transition-colors duration-300"
+          >
+            <FontAwesomeIcon icon={faSignOutAlt} /> Logout
+          </button>
         ) : (
           <button 
             onClick={handleLoginLogout} 

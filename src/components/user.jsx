@@ -1,86 +1,145 @@
 import React, { useState } from 'react';
 
 const User = () => {
-  const [expanded, setExpanded] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [username, setUsername] = useState('cross joseph');
+  const [password, setPassword] = useState('');
+  const [profilePicture, setProfilePicture] = useState('https://via.placeholder.com/160');
 
-  const user = {
-    id: 1,
-    name: "Cross Joseph",
-    email: "cross@example.com",
-    role: "Driver",
-    profilePicture: "your-image-url.jpg", // Replace with the actual image URL or state
-    activity: [
-      "Joined a new group",
-      "Updated profile picture",
-      "Completed a task"
-    ]
+  const handleEditProfileClick = () => {
+    setIsModalOpen(true);
   };
 
-  const toggleExpand = () => {
-    setExpanded(expanded === user.id ? null : user.id);
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleSaveChanges = () => {
+    // Handle the form submission logic here
+    setIsModalOpen(false);
+  };
+
+  const handleProfilePictureChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setProfilePicture(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-green-400 to-blue-500 p-6 flex flex-col items-center">
-      {/* Profile Picture */}
-      <div className="relative mb-4">
-        <div className="bg-gray-200 rounded-full h-32 w-32 flex items-center justify-center text-black text-4xl border border-black">
-          <span>{user.name[0]}</span>
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 text-white">
+      {/* Profile Section */}
+      <div className={`bg-white text-black p-16 rounded-3xl shadow-lg flex flex-col items-center ${isModalOpen ? 'blur-sm' : ''}`}>
+        {/* Profile Picture */}
+        <div className="relative">
+          <div className="bg-gray-200 rounded-full h-40 w-40 flex items-center justify-center text-black text-6xl border-4 border-purple-500">
+            <span className="text-6xl">{username.charAt(0).toUpperCase()}</span>
+          </div>
+          <img
+            src={profilePicture}
+            alt="Profile"
+            className="absolute top-0 left-0 rounded-full h-40 w-40 object-cover border-4 border-purple-500"
+          />
         </div>
-        <img
-          src={user.profilePicture}
-          alt="Profile"
-          className="absolute top-0 left-0 rounded-full h-32 w-32 object-cover border-4 border-white"
-        />
-      </div>
 
-      {/* User Info */}
-      <div className="text-center">
-        <h2 className="text-3xl font-bold text-white">{user.name}</h2>
-        <span className="text-xl text-gray-200">1 following</span>
-      </div>
+        {/* User Info */}
+        <h2 className="mt-6 text-5xl font-extrabold">{username}</h2>
+        <span className="text-2xl font-semibold mt-2">1 following</span>
 
-      {/* Action Buttons */}
-      <div className="mt-6 flex space-x-4">
-        <button className="bg-blue-500 text-white text-sm font-semibold py-2 px-4 rounded-full hover:bg-blue-600 transition">
-          + Share
-        </button>
-        <button className="bg-green-500 text-white text-sm font-semibold py-2 px-4 rounded-full hover:bg-green-600 transition">
-          + Edit Profile
-        </button>
-      </div>
-
-      {/* Created and Saved */}
-      <div className="mt-6 flex justify-around w-full max-w-md border-t border-gray-300 pt-4">
-        <div className="flex flex-col items-center">
-          <div className="text-2xl font-bold text-white">Created</div>
-          <span className="text-xl text-gray-200">5</span>
+        {/* Action Buttons */}
+        <div className="mt-6 flex space-x-6">
+          <button
+            className="bg-purple-600 hover:bg-purple-800 text-white text-lg font-semibold py-3 px-8 rounded-full transition duration-200"
+            onClick={handleEditProfileClick}
+          >
+            + Edit Profile
+          </button>
         </div>
-        <div className="flex flex-col items-center">
-          <div className="text-2xl font-bold text-white">Saved</div>
-          <span className="text-xl text-gray-200">10</span>
+
+        {/* Created and Saved */}
+        <div className="mt-12 flex justify-around w-full max-w-xl">
+          <div className="text-2xl font-bold cursor-pointer hover:text-purple-600 transition duration-200">Created</div>
+          <div className="text-2xl font-bold cursor-pointer hover:text-purple-600 transition duration-200">Saved</div>
         </div>
       </div>
 
-      {/* Recent Activity */}
-      <div className="mt-6 bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
-        <h4
-          className="text-md font-bold text-blue-500 cursor-pointer"
-          onClick={toggleExpand}
-        >
-          Recent Activity{" "}
-          <span className="text-gray-500 text-sm">
-            {expanded === user.id ? "▲" : "▼"}
-          </span>
-        </h4>
-        {expanded === user.id && (
-          <ul className="list-disc ml-5 mt-2 text-gray-700 max-h-24 overflow-y-auto custom-scrollbar">
-            {user.activity.map((item, index) => (
-              <li key={index}>{item}</li>
-            ))}
-          </ul>
-        )}
-      </div>
+      {/* Edit Profile Modal */}
+      {isModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center">
+          <div className="absolute inset-0 backdrop-blur-sm"></div>
+          <div className="bg-white rounded-2xl shadow-xl max-w-4xl w-full p-10 relative animate-fadeIn text-gray-700 z-10">
+            <button
+              className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 focus:outline-none"
+              onClick={handleCloseModal}
+            >
+              &times;
+            </button>
+            <h3 className="text-3xl font-bold mb-8 text-center text-purple-600">Edit Profile</h3>
+            <form className="space-y-6">
+              {/* Profile Picture */}
+              <div className="text-center">
+                <label className="block text-base font-semibold mb-3">Profile Picture</label>
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleProfilePictureChange}
+                  className="block w-full text-base text-gray-900 border border-gray-300 rounded-lg cursor-pointer focus:outline-none focus:border-purple-500"
+                />
+                <div className="mt-4 flex justify-center">
+                  <img
+                    src={profilePicture}
+                    alt="Preview"
+                    className="h-32 w-32 rounded-full object-cover border-2 border-purple-500"
+                  />
+                </div>
+              </div>
+
+              {/* Username */}
+              <div>
+                <label className="block text-base font-semibold mb-3">Username</label>
+                <input
+                  type="text"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  className="w-full px-6 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+                />
+              </div>
+
+              {/* Password */}
+              <div>
+                <label className="block text-base font-semibold mb-3">Password</label>
+                <input
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="w-full px-6 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+                  placeholder="New password"
+                />
+              </div>
+            </form>
+
+            {/* Modal Buttons */}
+            <div className="mt-8 flex justify-end space-x-6">
+              <button
+                onClick={handleCloseModal}
+                className="px-6 py-3 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleSaveChanges}
+                className="px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-400"
+              >
+                Save Changes
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

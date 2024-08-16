@@ -7,7 +7,7 @@ const Core = () => {
   const [cardsData, setCardsData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const apiUrl = 'http://127.0.0.1:5000/core'; // Backend API endpoint
+  const apiUrl = 'http://127.0.0.1:8000/core'; // Backend API endpoint
 
   useEffect(() => {
     const fetchData = async () => {

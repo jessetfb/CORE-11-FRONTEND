@@ -3,7 +3,6 @@ import NavbarComponent from '../components/Navbar';
 import Core from '../components/Core';
 import CreateHashtags from '../components/CreateHashtags';
 import ManageHashtags from '../components/ManageHashtags';
-import Dashboard from '../Pages/Dashboard';
 import Footer from '../components/Footer';
 
 const Home = () => {
@@ -16,7 +15,7 @@ const Home = () => {
       <NavbarComponent />
       <CreateHashtags />
       <ManageHashtags />
-      <Dashboard cores={cores} setCores={setCores} />
+
       <Core cores={cores} />
       <Footer />
     </>

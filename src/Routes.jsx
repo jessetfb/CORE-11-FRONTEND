@@ -1,16 +1,13 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-
-// Import components
 import Home from './Pages/HomePage';
 import LandingPage from './Pages/LandingPage';
-import Profile from './components/Profile';
 import Register from './components/Registration';
 import Corepage from './components/Corepage';
-import Dashboard from './Pages/Dashboard';
+import Dashboard from './Pages/dashboard';
 import CreateHashtags from './components/CreateHashtags';
 import ManageHashtags from './components/ManageHashtags';
-import CreateCore from './Pages/CreateCore';
+import CreateCore from './components/CreateCore';
 
 function AppRoutes() {
   return (
@@ -20,12 +17,11 @@ function AppRoutes() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<LandingPage />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/Dashboard" element={<Dashboard /> 
+        <Route path="/dashboard" element={<Dashboard /> 
           } 
         />
 
         {/* Protected Routes */}
-        <Route path="/profile/:id" element={<Profile />} />
         <Route path="/core/:id" element={<Corepage />} />
         <Route path="/create-core" element={<CreateCore />} />
 

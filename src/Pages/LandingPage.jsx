@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Form, Button } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css'; // Ensure Bootstrap is included
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Register from '../components/Registration'; // Import Registration component
 
 const LandingPage = () => {
   const [email, setEmail] = useState('');
@@ -10,12 +11,20 @@ const LandingPage = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
+  useEffect(() => {
+    // Check if the user is not logged in
+    const token = localStorage.getItem('token');
+    if (!token) {
+      navigate('/register'); // Redirect to the registration page
+    }
+  }, [navigate]);
+
   const handleLogin = async (e) => {
     e.preventDefault();
 
     try {
       // Send login request to the backend
-      const response = await axios.post('http://localhost:5000/api/login', { email, password });
+      const response = await axios.post('http://127.0.0.1:8000/token', { email, password });
 
       const { token, user } = response.data;
 
