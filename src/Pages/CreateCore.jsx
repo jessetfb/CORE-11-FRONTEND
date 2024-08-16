@@ -50,8 +50,7 @@ const CreateCore = () => {
         setImageUrl('');
         setErrorMessage('');
 
-        // Simulate sending data to the backend and then navigate
-        // Replace with actual API call
+        // Send data to the backend
         await fetch('/api/submit-core', {
             method: 'POST',
             headers: {
@@ -66,8 +65,8 @@ const CreateCore = () => {
             }),
         });
 
-        // Navigate to home page
-        navigate('/');
+        // Navigate to dashboard with state containing image data
+        navigate('/dashboard', { state: { image: imageToSave, title: coreTitle, description: coreDescription, link, hashtag } });
     };
 
     return (
@@ -91,7 +90,7 @@ const CreateCore = () => {
                     <h2 className="text-2xl font-bold mb-6 ml-4">CREATE CORE</h2>
                     <div className="relative border border-gray-600 bg-gray-100 rounded-md ml-4" style={{ height: '500px', padding: '20px', display: 'flex', justifyContent: 'center', alignItems: 'center', position: 'relative' }}>
                         {selectedImage || imageUrl ? (
-                            <img src={selectedImage || imageUrl} alt="Selected" className="w-auto h-auto max-h-full max-w-full" />
+                            <img src={selectedImage || imageUrl} alt="Selected" className="w-full h-full object-contain" />
                         ) : (
                             <span className="text-gray-500">Choose a file or drag and drop it here</span>
                         )}

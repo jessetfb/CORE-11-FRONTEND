@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import NavbarComponent from '../components/Navbar';
 import Core from '../components/Core';
-import HashtagsSection from '../components/HashtagsSection';
-import Footer from '../components/footer';
+import CreateHashtags from '../components/CreateHashtags';
+import ManageHashtags from '../components/ManageHashtags';
+import Dashboard from '../Pages/Dashboard';
+import Footer from '../components/Footer';
 
 const Home = () => {
   const [cores, setCores] = useState([]);
@@ -12,7 +14,9 @@ const Home = () => {
   return (
     <>
       <NavbarComponent />
-      <HashtagsSection />
+      <CreateHashtags />
+      <ManageHashtags />
+      <Dashboard cores={cores} setCores={setCores} />
       <Core cores={cores} />
       <Footer />
     </>
